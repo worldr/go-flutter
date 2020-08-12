@@ -126,9 +126,15 @@ func (p *textinputPlugin) handleSetEditingState(arguments interface{}) (reply in
 		p.ed.SelectionExtent < 0 ||
 		p.ed.SelectionBase > utf16TextLen ||
 		p.ed.SelectionExtent > utf16TextLen {
-		// request a new EditingState
-		err := p.channel.InvokeMethod("TextInputClient.requestExistingInputState", nil)
-		return nil, err
+		// set sane default
+		p.ed.SelectionBase = 0
+		p.ed.SelectionExtent = 0
+		// request a new EditingState if text is present in the TextInput
+		if p.ed.Text != "" {
+			err := p.channel.InvokeMethod("TextInputClient.requestExistingInputState", nil)
+			return nil, err
+		}
+		return nil, nil
 	}
 
 	return nil, nil
@@ -161,7 +167,7 @@ func (p *textinputPlugin) glfwKeyCallback(window *glfw.Window, key glfw.Key, sca
 	if (action == glfw.Repeat || action == glfw.Press) && p.clientID != 0 {
 
 		// Enter
-		if key == glfw.KeyEnter {
+		if key == glfw.KeyEnter || key == glfw.KeyKPEnter {
 			if keyboard.DetectTextInputDoneMod(mods) {
 				// Indicates that they are done typing in the TextInput
 				p.performAction("TextInputAction.done")
