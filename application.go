@@ -323,6 +323,7 @@ func (a *Application) Run() error {
 	a.window.SetContentScaleCallback(func(window *glfw.Window, x float32, y float32) {
 		debounced(func() {
 			glfwDebouceTasker.Do(func() {
+				fmt.Print(" .")
 				windowManager.glfwRefreshCallback(window)
 			})
 		})
