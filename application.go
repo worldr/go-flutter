@@ -316,14 +316,16 @@ func (a *Application) Run() error {
 	a.window.SetPosCallback(func(window *glfw.Window, xpos int, ypos int) {
 		debounced(func() {
 			glfwDebouceTasker.Do(func() {
+				fmt.Print(",")
 				windowManager.glfwRefreshCallback(window)
 			})
 		})
 	})
+	fmt.Println("-- DEBUG --")
 	a.window.SetContentScaleCallback(func(window *glfw.Window, x float32, y float32) {
 		debounced(func() {
 			glfwDebouceTasker.Do(func() {
-				fmt.Print(" .")
+				fmt.Print(".")
 				windowManager.glfwRefreshCallback(window)
 			})
 		})
