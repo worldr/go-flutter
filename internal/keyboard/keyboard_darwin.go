@@ -11,7 +11,7 @@ func DetectWordMod(mods glfw.ModifierKey) bool {
 // DetectTextInputDoneMod returns true if the modifiers pressed
 // indicate the typed text can be committed
 func DetectTextInputDoneMod(mods glfw.ModifierKey) bool {
-	return mods&glfw.ModSuper != 0
+	return mods&glfw.ModShift == 0
 }
 
 // platfromNormalize normalizes for macos
