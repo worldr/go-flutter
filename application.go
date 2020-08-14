@@ -320,6 +320,13 @@ func (a *Application) Run() error {
 			})
 		})
 	})
+	a.window.SetContentScaleCallback(func(window *glfw.Window, x float32, y float32) {
+		debounced(func() {
+			glfwDebouceTasker.Do(func() {
+				windowManager.glfwRefreshCallback(window)
+			})
+		})
+	})
 
 	// Attach glfw window callbacks for text input
 	a.window.SetKeyCallback(
