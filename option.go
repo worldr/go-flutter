@@ -62,7 +62,7 @@ func newApplicationConfig() config {
 		windowMode:        WindowModeDefault,
 		windowAlwaysOnTop: false,
 		windowTransparent: false,
-		scrollAmount:      100.0,
+		scrollAmount:      30.0,
 
 		// Sane configuration values for the engine.
 		flutterAssetsPath: filepath.Join(filepath.Dir(execPath), "flutter_assets"),
